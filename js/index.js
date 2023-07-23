@@ -1,4 +1,11 @@
 
+const host = 'i.peacht.art' // 인스턴스 주소
+const misskeyUserId = '9gsrcnxa0g' // 각자의 서버에서 api 콘솔 - i 로 알아내세용
+const misskeyUserName = 'hyun1008' // 미스키 아이디
+const githubUserName = 'jyhyun1008' // 깃허브 아이디
+const githubRepoName = 'peachtartblog' // 깃허브 레포지토리 이름
+
+
 let vh = window.innerHeight * 0.01;
 let vw = window.innerWidth * 0.01;
 document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -160,7 +167,7 @@ var category = qs.cat;
 var article = qs.a;
 
 if (!page) {
-    var url = "https://raw.githubusercontent.com/jyhyun1008/peachtartblog/main/README.md"
+    var url = "https://raw.githubusercontent.com/"+githubUserName+"/"+githubRepoName+"/main/README.md"
     fetch(url)
     .then(res => res.text())
     .then((out) => {
@@ -170,14 +177,14 @@ if (!page) {
     .catch(err => { throw err });
 } else if (page == 'blog' && category != null) {
     document.querySelector("#posttitle").innerText = category
-    const findPageUrl = 'https://i.peacht.art/api/users/pages'
+    const findPageUrl = 'https://'+host+'/api/users/pages'
     const findPageParam = {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
         },
         body: JSON.stringify({
-            userId: '9gsrcnxa0g',
+            userId: misskeyUserId,
             limit: 100,
         }),
     }
@@ -192,7 +199,7 @@ if (!page) {
         for (var i=0; i<PageRes.length; i++){
             if (PageRes[i].summary && PageRes[i].summary.includes("#"+category)) {
                 pageId.push(PageRes[i].id)
-                pageUrl.push("https://i.peacht.art/@hyun1008/pages/"+PageRes[i].name)
+                pageUrl.push("https://"+host+"/@"+misskeyUserName+"/pages/"+PageRes[i].name)
                 pageTitle.push(PageRes[i].title)
                 if (PageRes[i].summary != null) {
                     pageSummary.push(PageRes[i].summary)
@@ -212,7 +219,7 @@ if (!page) {
     .catch(err => { throw err });
 } else if (page == 'blog' && article != null) {
     document.querySelector("#posttitle").innerText = 'BLOG'
-    const findPageUrl = 'https://i.peacht.art/api/pages/show'
+    const findPageUrl = 'https://'+host+'/api/pages/show'
     const findPageParam = {
         method: 'POST',
         headers: {
@@ -246,7 +253,7 @@ if (!page) {
                                 result = result + '\n<img class="postimage" src="' + fileUrl + '">'
                             } else if (content[i].children[j].type == 'note') {
                                 var noteId = content[i].children[j].note
-                                result = result + '\n<div>[노트 참조](https://i.peacht.art/' + noteId + ')</div>'
+                                result = result + '\n<div>[노트 참조](https://'+host+'/' + noteId + ')</div>'
                             }
                         }
                     }
@@ -263,13 +270,13 @@ if (!page) {
                     result = result + '\n<img class="postimage" src="' + fileUrl + '">'
                 } else if (content[i].type == 'note') {
                     var noteId = content[i].note
-                    result = result + '\n<div>[노트 참조](https://i.peacht.art/' + noteId + ')</div>'
+                    result = result + '\n<div>[노트 참조](https://'+host+'/' + noteId + ')</div>'
                 }
             }
             return result
         }
 
-        var pageUrl = "https://i.peacht.art/@hyun1008/pages/"+PageRes.name
+        var pageUrl = "https://"+host+"/@"+misskeyUserName+"/pages/"+PageRes.name
         var pageTitle = PageRes.title
         var pageImage = PageRes.eyeCatchingImage.url
         var pageText = makePageText(PageRes.content, PageRes.attachedFiles)
@@ -280,7 +287,7 @@ if (!page) {
     })
     .catch(err => { throw err });
 } else if (page) {
-    var url = "https://raw.githubusercontent.com/jyhyun1008/peachtartblog/main/pages/"+page+"/.md"
+    var url = "https://raw.githubusercontent.com/"+githubUserName+"/"+githubRepoName+"/main/pages/"+page+"/.md"
     fetch(url)
     .then(res => res.text())
     .then((out) => {
