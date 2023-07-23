@@ -2,6 +2,7 @@
 # 피치타르트 블로그
 
 ![1861362_ihjMQi94](https://github.com/jyhyun1008/peachtartblog/assets/93899740/e009d6da-e665-47eb-8d3d-2f0cb1c9d929)
+미스키 마스코트 아이쨩 x 피치타르트 마스코트 파이쨩
 
 피치타르트의 주인장 [재연](i.peacht.art/@hyun1008)의 블로그입니다.
 
