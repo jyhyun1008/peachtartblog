@@ -261,7 +261,7 @@ if (!page) {
                     result = result + '\n<img class="postimage" src="' + fileUrl + '">'
                 } else if (content[i].type == 'note') {
                     var noteId = content[i].note
-                    result = result + '\n?quote(' + noteId + ')'
+                    result = result + '\n<div>[노트 참조](https://i.peacht.art/' + noteId + ')</div>'
                 }
             }
             return result
