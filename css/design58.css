@@ -8,14 +8,25 @@ https://fonts.google.com/specimen/Lato
 
 /* 共通設定 */
 
+:root {
+    --lightaccent: #ffe9d7;
+    --accent: #ff989a;
+    --darkaccent: #bc5b3e;
+    --lightlightgray: #efefef;
+    --lightgray: #fff6e4;
+    --gray: #e7d4cb;
+    --darkgray: #867979;
+    --text: #6d5a5a;
+}
+
 html {
     background: transparent;
     font-size: 14px;
 }
 body {
     min-height: 100vh;
-    background: #ffffff;
-    color: #5a656d;
+    background: white;
+    color: var(--text);
     font-size: 1.1rem;
     font-family: Galmuri11, 'メイリオ', 'ヒラギノ角ゴ', sans-serif;
     letter-spacing: 0.2em;
@@ -28,7 +39,8 @@ p {
     margin-bottom: 10px;
 }
 h1 {
-    font-size: 1.5em;
+    font-size: 1.7em;
+    color: var(--accent);
 }
 h2,h3,h4,#back {
     font-family: Galmuri11, 'Lato', sans-serif;
@@ -42,7 +54,7 @@ h2 {
     margin-right: 1em;
     width: 1rem;
     height: 3em;
-    background: linear-gradient(#d6f5f7 30%, #f7f5f3 30%);
+    background: linear-gradient(var(--lightaccent) 30%, var(--lightlightgray) 30%);
 }
 
 #posttitle {
@@ -58,10 +70,10 @@ h3 {
     padding: .5rem 1rem;
     margin: 1em .5em;
     background: #f7f5f3;
-    color: #3c4a53;
+    color: var(--text);
 }
 h3::first-letter {
-    color: #5f8fa5;
+    color: var(--darkaccent);
 }
 h4 {
     margin: .5em 1em;
@@ -69,16 +81,16 @@ h4 {
 h4::before {
     content: '>>';
     margin-right: 1rem;
-    color: #d0d6d8;
+    color: var(--gray);
     letter-spacing: 0;
 }
 em {
-    background: #dfdbd7;
-    color: #3c4a53;
+    background: var(--gray);
+    color: var(--text);
     font-style: normal;
 }
 input[type],textarea,button,select {
-    border: solid .2px #cccccc;
+    border: solid .2px var(--gray);
     font-family: inherit;
     font-size: 90%;
     letter-spacing: inherit;
@@ -118,11 +130,11 @@ div[class^="box"] {
     box-sizing: border-box;
 }
 .mainFrame a {
-    color: #7dc3cf;
+    color: var(--accent);
     transition: .3s;
 }
 .mainFrame a:hover {
-    color: #48909c;
+    color: var(--darkaccent);
 }
 
 
@@ -149,7 +161,7 @@ div[class^="box"] {
     width: 100%;
     height: 100%;
     min-height: 12em;
-    background-color: #f0eeea;
+    background-color: var(--lightgray);
     transition: .3s;
 }
 .longTitle,.longInfo {
@@ -160,7 +172,7 @@ div[class^="box"] {
 }
 .longTitle {
     padding: 2em 1em;
-    color: #5a656d;
+    color: var(--text);
 }
 .longTitle span {
     padding: .5rem;
@@ -175,7 +187,7 @@ div[class^="box"] {
      top: 100%;
     padding: 1em 2em;
     background: rgba(255,255,255,.5);
-    color: #3c4a53;
+    color: var(--text);
     font-size: .9em;
 }
 .longList a:hover .longTitle {
@@ -221,8 +233,8 @@ input[type="text"],textarea {
 }
 input[type="submit"] {
     padding: .2em 1em;
-    background: center / cover #d5fafc;
-    background-image: repeating-linear-gradient(-35deg, transparent, transparent 1em, #ffffff 1em, #ffffff 1.1em), url('../img/design58_5.jpg');
+    background: center / cover var(--lightaccent);
+    background-image: repeating-linear-gradient(-35deg, transparent, transparent 1em, #ffffff 1em, #ffffff 1.1em), url('../img/background1.png');
     border: none;
 }
 
@@ -243,7 +255,7 @@ ul[class^="list"] {
 .list::before {
     content: '/';
     margin: 0 1em;
-    color: #cad6d6;
+    color: var(--gray);
 }
 
 
@@ -255,8 +267,8 @@ ul[class^="list"] {
      left: 0;
     width: 25%;
     height: 100vh;
-    background: #d5fafc;
-    background-image: repeating-linear-gradient(-35deg, transparent, transparent 1em, #ffffff 1em, #ffffff 1.1em), url('../img/design58_5.jpg');
+    background: var(--lightaccent);
+    background-image: repeating-linear-gradient(-35deg, transparent, transparent 1em, #ffffff 1em, #ffffff 1.1em), url('../img/background1.png');
     font-family: Galmuri11, 'Lato', sans-serif;
 }
 .mainNav {
@@ -264,7 +276,7 @@ ul[class^="list"] {
     padding: 1em;
     margin-top: 35vh;
     height: 65vh;
-    background: #f7f5f3;
+    background: var(--lightlightgray);
     font-size: 1.2em;
     text-align: right;
 }
@@ -272,7 +284,7 @@ ul[class^="list"] {
     display: inline-block;
     padding: .5em 0 .5em 1em;
     font-size: 1.5em;
-    border-left: #e3ecec solid 1rem;
+    border-left: var(--gray) solid 1rem;
 }
 .mainNav ul {
     position: relative;
@@ -284,13 +296,12 @@ ul[class^="list"] {
 }
 .mainNav li a {
     padding: .5em 0 .5em 1em;
-    background: rgba(247,245,243,.7);
-    color: #5a656d;
-    text-shadow: 0 0 1rem #515d5e;
+    color: var(--text);
+    text-shadow: 0 0 1rem var(--text);
     transition: .3s;
 }
 .mainNav li a:hover {
-    color: #a1b7c7;
+    color: var(--gray);
 }
 
 
@@ -308,9 +319,9 @@ ul[class^="list"] {
     width: 4rem;
     height: 4rem;
     background: center / cover;
-    background-image: repeating-linear-gradient(-35deg, transparent, transparent 1em, #ffffff 1em, #ffffff 1.1em), url('../img/design58_5.jpg');
-    box-shadow: 0 0 4px #dfdbd7;
-    color: #798586;
+    background-image: repeating-linear-gradient(-35deg, transparent, transparent 1em, #ffffff 1em, #ffffff 1.1em), url('../img/background1.png');
+    box-shadow: 0 0 4px var(--gray);
+    color: var(--darkgray);
     cursor: pointer;
     font-size: 1rem;
 }
@@ -321,12 +332,12 @@ footer {
     display: none;
     margin: 5vh 0 5vh 30%;
     max-width: 1500px;
-    color: #dfdbd7;
+    color: var(--gray);
     font-size: 1rem;
     text-align: center;
 }
 footer a {
-    color: #cad6d6;
+    color: var(--accent);
 }
 
 
@@ -399,7 +410,7 @@ footer a {
         width: 1em;
     }
     .active {
-        color: #7dc3cf;
+        color: var(--accent);
     }
     .active::after {
         content: '×';
@@ -485,7 +496,7 @@ footer a {
 
 code {
     border-radius: 5px;
-    background-color: #48909c;
+    background-color: var(--darkaccent);
     color: white;
     padding: 5px;
     white-space: pre-wrap;
@@ -494,8 +505,8 @@ code {
 
 pre {
     border-radius:10px;
-    background-color: #e3ecec;
-    color: #48909c;
+    background-color: var(--lightgray);
+    color: var(--darkaccent);
     white-space: pre-wrap;
     word-wrap: break-all;
     overflow:auto;
