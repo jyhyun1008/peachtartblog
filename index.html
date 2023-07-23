@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<META NAME="GOOGLEBOT" CONTENT="NOINDEX,NOFOLLOW,NOARCHIVE">
+<META NAME="ROBOTS" CONTENT="NOARCHIVE,NOINDEX,NOFOLLOW">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta http-equiv="cache-control" content="no-cache">
+<meta charset="UTF-8">
+<title>피치타르트 정적? 블로그?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/reset.css" media="screen">
+<link rel="stylesheet" type="text/css" href="css/design58.css" media="screen">
+<link rel="icon" type="image/png" href="img/design58_favicon.png">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <header class="mainHeader">
+
+        <nav class="mainNav">
+            <h1>피치타르트</h1>
+            <ul>
+                <li><a href="/">information</a></li>
+                <li><a href="?p=blog&cat=portfolio">포트폴리오</a></li>
+                <li><a href="?p=blog&cat=notepad">노트패드</a></li>
+                <li><a href="?p=blog&cat=misskey">미스키</a></li>
+                <li><a href="?p=blog&cat=books">독서록</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="mainFrame">
+    
+    <div class="box-page">
+        
+        <section>
+            <h2 id="posttitle"></h2>
+            <div id="postcontent"></div>
+        </section>
+    </div>
+    
+        <nav id="back">
+            <a>top</a>
+        </nav>
+    
+    </div><!-- /mainFrame -->
+    
+    
+    
+    <footer>
+        designed by <a href="https://ragusnon.wwww.jp" rel="noopener">無糖</a>
+    </footer>
+    
+    <script>
+        $(function() {
+            $('.click').click(function(){
+                $(this).toggleClass('active');
+            });
+    
+            function scrollTop() {
+                return $(window).scrollTop();
+            }
+    
+            $('#back a').click(function(){
+                $('html,body').animate({scrollTop:0}, 'easeInCubic');
+            });
+    
+    
+        });
+    </script>
+    <script src="js/index.js"></script>
+</body>
