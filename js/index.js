@@ -64,6 +64,9 @@ function parseMd(md){
     md = md.replace(/\n[\/]{2}(.+)/g, '');
     
 
+    //code
+    md = md.replace(/[\`]{1}([^\`\n]+)[\`]{1}/g, '<code>$1</code>');
+
     //pre
     
     var mdpos = [];
@@ -95,6 +98,8 @@ function parseMd(md){
     }
 
 
+
+
     for (var i = 0; i < mdpos.length; i++){
         if (i % 2 == 0){
             md = md.replace(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]), '<pre class="code">'+md0.substring(rawpos[i], rawpos[i+1])+'</pre>');
@@ -105,9 +110,6 @@ function parseMd(md){
 
         }
     }
-
-    //code
-    md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '<code>$1</code>');
 
     //br
     md = md.replace(/\n\n/g, '</p><p>');
@@ -120,19 +122,19 @@ function parseMd(md){
 function parseMFM(md){
 
     //MFM->MD
-
-    var md0 = md;
   
     //ul
     md = md.replace(/\:arrow\_right\:/gm, '*');
     md = md.replace(/\:peachtart\:\s/gm, '🍑')
-    md = md.replace(/\:(.+)\:/gm, '')
     
     //h
     md = md.replace(/\n\$\[x2\s(.+)\]/gm, '## $1');
     
     //links
-    md = md.replace(/\?\[(.+)\]/gm, '[$1]');
+    md = md.replace(/\?\[/gm, '[');
+
+    //emoji
+    md = md.replace(/\:([^\:\/\n]+)\:/gm, '')
 
     return md;
     

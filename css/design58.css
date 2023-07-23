@@ -488,4 +488,16 @@ code {
     background-color: #48909c;
     color: white;
     padding: 5px;
+    white-space: pre-wrap;
+    word-wrap: break-all;
+}
+
+pre {
+    border-radius:10px;
+    background-color: #e3ecec;
+    color: #48909c;
+    white-space: pre-wrap;
+    word-wrap: break-all;
+    overflow:auto;
+    padding: 10px;
 }
