@@ -24,16 +24,19 @@ body {
 a {
     text-decoration: none;
 }
+p {
+    margin-bottom: 10px;
+}
+h1 {
+    font-size: 1.5em;
+}
 h2,h3,h4,#back {
     font-family: Galmuri11, 'Lato', sans-serif;
 }
 h2 {
-    display: flex;
-    align-items: center;
-    margin: 1em 0;
     font-size: 1.3em;
 }
-h2::before {
+#posttitle::before {
     content: '';
     display: block;
     margin-right: 1em;
@@ -41,6 +44,15 @@ h2::before {
     height: 3em;
     background: linear-gradient(#d6f5f7 30%, #f7f5f3 30%);
 }
+
+#posttitle {
+    display: flex;
+    align-items: center;
+    margin: 1em 0;
+}
+
+
+
 h3 {
     display: inline-block;
     padding: .5rem 1rem;
@@ -78,9 +90,6 @@ ul,ol,dl {
 
 
 /* 段落、余白設定 */
-p {
-    padding: 0 2em;
-}
 section {
     margin: 2em 0;
 }
@@ -226,16 +235,17 @@ ul[class^="list"] {
 .list li {
     margin: 0 .5em;
 }
-.list-slash li::before {
+.list {
+    margin-left: 2em;
+    text-indent: -2.7em;
+    list-style-type: none;
+}
+.list::before {
     content: '/';
-    display: inline-block;
     margin: 0 1em;
     color: #cad6d6;
 }
-.list-slash li:first-of-type::before {
-    content: '';
-    margin-left: 0;
-}
+
 
 /* ヘッダー、ナビゲーション */
 .mainHeader {
@@ -340,7 +350,7 @@ footer a {
         padding: .2em .5em;
     }
     p {
-        padding: 0 1em;
+        margin-bottom: 10px;
     }
     section {
         margin: 1em 0;
@@ -466,4 +476,16 @@ footer a {
 
 .blogPostTitle {
     font-size: 1.3em;
+}
+
+.postimage {
+    width: 100%;
+    border-radius: 10px;
+}
+
+code {
+    border-radius: 5px;
+    background-color: #48909c;
+    color: white;
+    padding: 5px;
 }

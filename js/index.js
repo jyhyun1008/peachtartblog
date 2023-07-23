@@ -15,14 +15,14 @@ function parseMd(md){
     var md0 = md;
   
     //ul
-    md = md.replace(/^\s*\n\*\s/gm, '<ul>\n* ');
+    md = md.replace(/^\s*\n\*\s/gm, '<ul">\n* ');
     md = md.replace(/^(\*\s.+)\s*\n([^\*])/gm, '$1\n</ul>\n\n$2');
-    md = md.replace(/^\*\s(.+)/gm, '<li class="before">$1</li>');
+    md = md.replace(/^\*\s(.+)/gm, '<li class="list before">$1</li>');
     
     //ul
     md = md.replace(/^\s*\n\-\s/gm, '<ul>\n* ');
     md = md.replace(/^(\-\s.+)\s*\n([^\-])/gm, '$1\n</ul>\n\n$2');
-    md = md.replace(/^\-\s(.+)/gm, '<li class="before">$1</li>');
+    md = md.replace(/^\-\s(.+)/gm, '<li class="list before">$1</li>');
     
     //ol
     md = md.replace(/^\s*\n\d\.\s/gm, '<ol>\n1. ');
@@ -46,10 +46,10 @@ function parseMd(md){
     md = md.replace(/\n[\#]{1}(.+)/g, '</div></div><div class="item_wrap"><div class="line">✿</div><div class="item"><h1>🎼 $1</h1>');
     
     //images with links
-    md = md.replace(/\!\[([^\]]+)\]\(([^\)]+)\)[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '<div class="gallery"><a href="$3"><img src="$2" alt="$1" width="100%" /></a></div>');
+    md = md.replace(/\!\[([^\]]+)\]\(([^\)]+)\)[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '<div class="gallery"><a href="$3"><img class="postimage" src="$2" alt="$1" width="100%" /></a></div>');
     
     //images
-    md = md.replace(/\!\[([^\]]+)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" width="100%" />');
+    md = md.replace(/\!\[([^\]]+)\]\(([^\)]+)\)/g, '<img class="postimage" src="$2" alt="$1" width="100%" />');
     
     //links
     md = md.replace(/[\[]{1}([^\]]+)[\]]{1}[\(]{1}([^\)\"]+)(\"(.+)\")?[\)]{1}/g, '<a href="$2" title="$4">$1</a>');
@@ -116,6 +116,28 @@ function parseMd(md){
     
 }
 
+
+function parseMFM(md){
+
+    //MFM->MD
+
+    var md0 = md;
+  
+    //ul
+    md = md.replace(/\:arrow\_right\:/gm, '*');
+    md = md.replace(/\:peachtart\:\s/gm, '🍑')
+    md = md.replace(/\:(.+)\:/gm, '')
+    
+    //h
+    md = md.replace(/\n\$\[x2\s(.+)\]/gm, '## $1');
+    
+    //links
+    md = md.replace(/\?\[(.+)\]/gm, '[$1]');
+
+    return md;
+    
+}
+
 function getQueryStringObject() {
     var a = window.location.search.substr(1).split('&');
     if (a == "") return {};
@@ -133,6 +155,7 @@ function getQueryStringObject() {
 var qs = getQueryStringObject();
 var page = qs.p;
 var category = qs.cat;
+var article = qs.a;
 
 if (!page) {
     var url = "https://raw.githubusercontent.com/jyhyun1008/peachtartblog/main/README.md"
@@ -144,7 +167,7 @@ if (!page) {
     })
     .catch(err => { throw err });
 } else if (page == 'blog' && category != null) {
-    document.querySelector("#posttitle").innerText = 'BLOG'
+    document.querySelector("#posttitle").innerText = category
     const findPageUrl = 'https://i.peacht.art/api/users/pages'
     const findPageParam = {
         method: 'POST',
@@ -159,12 +182,14 @@ if (!page) {
     fetch(findPageUrl, findPageParam)
     .then((PageData) => {return PageData.json()})
     .then((PageRes) => {
-        pageUrl = []
-        pageTitle = []
-        pageSummary = []
-        pageImage = []
+        var pageId = []
+        var pageUrl = []
+        var pageTitle = []
+        var pageSummary = []
+        var pageImage = []
         for (var i=0; i<PageRes.length; i++){
             if (PageRes[i].summary && PageRes[i].summary.includes("#"+category)) {
+                pageId.push(PageRes[i].id)
                 pageUrl.push("https://i.peacht.art/@hyun1008/pages/"+PageRes[i].name)
                 pageTitle.push(PageRes[i].title)
                 if (PageRes[i].summary != null) {
@@ -177,10 +202,79 @@ if (!page) {
         }
         for (var i=0; i<pageTitle.length; i++) {
             document.querySelector("#postcontent").innerHTML += '<div class="section"></div>'
-            document.getElementsByClassName("section")[i].innerHTML += '<div class="blogPostTitle"><a href="'+pageUrl[i]+'">'+pageTitle[i]+'</a></div>'
-            document.getElementsByClassName("section")[i].innerHTML += '<div><a href="'+pageUrl[i]+'"><img class="eyecatchimg" src="'+pageImage[i]+'"></div>'
+            document.getElementsByClassName("section")[i].innerHTML += '<div class="blogPostTitle"><a href="?p=blog&a='+pageId[i]+'">'+pageTitle[i]+'</a></div>'
+            document.getElementsByClassName("section")[i].innerHTML += '<div><a href="?p=blog&a='+pageId[i]+'"><img class="eyecatchimg" src="'+pageImage[i]+'"></div>'
             document.getElementsByClassName("section")[i].innerHTML += '<div>'+pageSummary[i]+'</div>'
         }
+    })
+    .catch(err => { throw err });
+} else if (page == 'blog' && article != null) {
+    document.querySelector("#posttitle").innerText = 'BLOG'
+    const findPageUrl = 'https://i.peacht.art/api/pages/show'
+    const findPageParam = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            pageId: article,
+        }),
+    }
+    fetch(findPageUrl, findPageParam)
+    .then((PageData) => {return PageData.json()})
+    .then((PageRes) => {
+
+        function makePageText(content, attFiles) {
+            var result = ''
+            for (var i=0; i <content.length; i++){
+                if (content[i].type == 'section') {
+                    if (!content[i].title.includes("𝙹𝙰𝙴𝚈𝙴𝙾𝙽'𝚜 𝙿𝚘𝚛𝚝𝚏𝚘𝚕𝚒𝚘") && !content[i].title.includes("𝕁𝔸𝔼𝕐𝔼𝕆ℕ'𝕤 ℕ𝕆𝕋𝔼ℙ𝔸𝔻")) {
+                        result = result + '\n#' + content[i].title
+                        for (var j = 0; j < content[i].children.length; j++){
+                            if (content[i].children[j].type == 'text') {
+                                result = result + '\n' + parseMFM(content[i].children[j].text)
+                            } else if (content[i].children[j].type == 'image') {
+                                var fileId = content[i].children[j].fileId
+                                var fileUrl = ''
+                                for (var k = 0; k <attFiles.length; k++){
+                                    if (attFiles[k].id == fileId) {
+                                        fileUrl = attFiles[k].url
+                                    }
+                                }
+                                result = result + '\n<img class="postimage" src="' + fileUrl + '">'
+                            } else if (content[i].children[j].type == 'note') {
+                                var noteId = content[i].children[j].note
+                                result = result + '\n<div>[노트 참조](https://i.peacht.art/' + noteId + ')</div>'
+                            }
+                        }
+                    }
+                } else if (content[i].type == 'text') {
+                    result = result + '\n' + parseMFM(content[i].text)
+                } else if (content[i].type == 'image') {
+                    var fileId = content[i].fileId
+                    var fileUrl = ''
+                    for (var k = 0; k <attFiles.length; k++){
+                        if (attFiles[k].id == fileId) {
+                            fileUrl = attFiles[k].url
+                        }
+                    }
+                    result = result + '\n<img class="postimage" src="' + fileUrl + '">'
+                } else if (content[i].type == 'note') {
+                    var noteId = content[i].note
+                    result = result + '\n?quote(' + noteId + ')'
+                }
+            }
+            return result
+        }
+
+        var pageUrl = "https://i.peacht.art/@hyun1008/pages/"+PageRes.name
+        var pageTitle = PageRes.title
+        var pageImage = PageRes.eyeCatchingImage.url
+        var pageText = makePageText(PageRes.content, PageRes.attachedFiles)
+        document.querySelector("#posttitle").innerText = pageTitle
+        document.querySelector("#postcontent").innerHTML += '<div><a href="'+pageUrl+'"><img class="eyecatchimg" src="'+pageImage+'"></div>'
+        document.querySelector("#postcontent").innerHTML += parseMd(pageText)
+        
     })
     .catch(err => { throw err });
 } else if (page) {
@@ -193,3 +287,4 @@ if (!page) {
     })
     .catch(err => { throw err });
 }
+
