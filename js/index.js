@@ -102,7 +102,7 @@ function parseMd(md){
 
     for (var i = 0; i < mdpos.length; i++){
         if (i % 2 == 0){
-            md = md.replace(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]), '<pre class="code">'+md0.substring(rawpos[i], rawpos[i+1])+'</pre>');
+            md = md.replace(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]), '<pre class="code">'+md0.substring(rawpos[i], rawpos[i+1]).replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;")+'</pre>');
 
             var mdSubStringLength = mdpos[i+1] - mdpos[i];
             var rawSubStringLength = rawpos[i+1] - rawpos[i] + '<pre class="code">'.length + '</pre>'.length;
