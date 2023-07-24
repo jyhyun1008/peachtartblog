@@ -179,7 +179,7 @@ function parseMFM(md){
 
         }
     }
-    
+
     return md;
 }
 
@@ -289,7 +289,7 @@ if (!page) {
                                 result = result + '\n<img class="postimage" src="' + fileUrl + '">'
                             } else if (content[i].children[j].type == 'note') {
                                 var noteId = content[i].children[j].note
-                                result = result + '\n<div>[노트 참조](https://'+host+'/' + noteId + ')</div>'
+                                result = result + '\n<div>[노트 참조](https://'+host+'/notes/' + noteId + ')</div>'
                             }
                         }
                     }
@@ -306,7 +306,7 @@ if (!page) {
                     result = result + '\n<img class="postimage" src="' + fileUrl + '">'
                 } else if (content[i].type == 'note') {
                     var noteId = content[i].note
-                    result = result + '\n<div>[노트 참조](https://'+host+'/' + noteId + ')</div>'
+                    result = result + '\n<div>[노트 참조](https://'+host+'/notes/' + noteId + ')</div>'
                 }
             }
             return result
