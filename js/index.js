@@ -286,7 +286,7 @@ if (!page) {
                                         fileUrl = attFiles[k].url
                                     }
                                 }
-                                result = result + '\n<img class="postimage" src="' + fileUrl + '">'
+                                result = result + '\n<div class="gallery"><img class="postimage" src="' + fileUrl + '"></div>'
                             } else if (content[i].children[j].type == 'note') {
                                 var noteId = content[i].children[j].note
                                 result = result + '\n<div>[노트 참조](https://'+host+'/notes/' + noteId + ')</div>'
@@ -303,7 +303,7 @@ if (!page) {
                             fileUrl = attFiles[k].url
                         }
                     }
-                    result = result + '\n<img class="postimage" src="' + fileUrl + '">'
+                    result = result + '\n<div class="gallery"><img class="postimage" src="' + fileUrl + '"></div>'
                 } else if (content[i].type == 'note') {
                     var noteId = content[i].note
                     result = result + '\n<div>[노트 참조](https://'+host+'/notes/' + noteId + ')</div>'
