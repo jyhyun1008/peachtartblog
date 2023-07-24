@@ -111,6 +111,7 @@ function parseMd(md){ // 깃허브 등에 사용하는 마크다운 파일을 ht
     }
 
     //br
+    md = md.replace(/\n\n\n/g, '</p><p> </p><p>');
     md = md.replace(/\n\n/g, '</p><p>');
     
     return md;

@@ -39,8 +39,8 @@ a {
 a:hover {
     cursor: url(https://peachtart2.s3.ap-northeast-1.amazonaws.com/tart/2598379a-e743-4079-96eb-b27da0a0e735.png), auto;
 }
-p {
-    margin-bottom: 10px;
+p, h1, h2, h3, h4, h5, h6, pre{
+    margin-bottom: 20px;
 }
 h1 {
     font-size: 1.7em;
@@ -522,5 +522,4 @@ pre {
     word-wrap: break-all;
     overflow:auto;
     padding: 10px;
-    margin-bottom: 10px;
 }
