@@ -5,21 +5,9 @@ const misskeyUserName = 'hyun1008' // 미스키 아이디
 const githubUserName = 'jyhyun1008' // 깃허브 아이디
 const githubRepoName = 'peachtartblog' // 깃허브 레포지토리 이름
 
-
-let vh = window.innerHeight * 0.01;
-let vw = window.innerWidth * 0.01;
-document.documentElement.style.setProperty('--vh', `${vh}px`);
-
-// 리사이즈
-window.addEventListener('resize', () => {
-    let vh = window.innerHeight * 0.01;
-    let vw = window.innerWidth * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-})
-
 function parseMd(md){
 
-    var md0 = md;
+    const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;");
   
     //ul
     md = md.replace(/^\s*\n\*\s/gm, '<ul">\n* ');
@@ -81,7 +69,7 @@ function parseMd(md){
     let pos1 = -1;
     let k = 0;
 
-    var diff = [0]
+    var diff = [0, 0, 0]
 
     while( (pos1 = md0.indexOf('\n```', pos1 + 1)) != -1 ) { 
         if (k % 2 == 0){
@@ -104,22 +92,24 @@ function parseMd(md){
         l++;
     }
 
-
-
-
     for (var i = 0; i < mdpos.length; i++){
         if (i % 2 == 0){
-            md = md.replace(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]), '<pre class="code">'+md0.substring(rawpos[i], rawpos[i+1]).replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;")+'</pre>');
+
+            console.log(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]))
+
+            md = md.replace(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]), '<pre class="code">'+md0.substring(rawpos[i], rawpos[i+1])+'</pre>');
 
             var mdSubStringLength = mdpos[i+1] - mdpos[i];
             var rawSubStringLength = rawpos[i+1] - rawpos[i] + '<pre class="code">'.length + '</pre>'.length;
             diff[i+2] = diff[i] + mdSubStringLength - rawSubStringLength;
 
+            console.log(diff)
+
         }
     }
 
     //br
-    md = md.replace(/\n\n/g, '</p><p>');
+    //md = md.replace(/\n\n/g, '</p><p>');
     
     return md;
     
@@ -135,13 +125,16 @@ function parseMFM(md){
     md = md.replace(/\:peachtart\:\s/gm, '🍑')
     
     //h
-    md = md.replace(/\n\$\[x2\s(.+)\]/gm, '## $1');
+    md = md.replace(/\n\$\[x2\s(.+)\]/gm, '\n## $1');
     
     //links
     md = md.replace(/\?\[/gm, '[');
 
     //emoji
     md = md.replace(/\:([^\:\/\n]+)\:/gm, '')
+
+    //br
+    md = md.replace(/\n\n/g, '\n\n');
 
     return md;
     
