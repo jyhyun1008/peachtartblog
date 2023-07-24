@@ -496,8 +496,8 @@ footer a {
 
 code {
     border-radius: 5px;
-    background-color: var(--darkaccent);
-    color: white;
+    background-color: var(--lightlightgray);
+    color: var(--darkaccent);
     padding: 5px;
     white-space: pre-wrap;
     word-wrap: break-all;
