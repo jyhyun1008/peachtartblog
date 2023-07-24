@@ -1,6 +1,8 @@
 
 # 피치타르트 블로그
 
+혹시 피치타르트 미스키에 가려고 했는데 잘못 들어온 거다냥? [원하는 페이지로 보내주겠다냥!](https://i.peacht.art)
+
 ![1861362_ihjMQi94](https://github.com/jyhyun1008/peachtartblog/assets/93899740/e009d6da-e665-47eb-8d3d-2f0cb1c9d929)
 미스키 마스코트 아이쨩 x 피치타르트 마스코트 파이쨩
 
