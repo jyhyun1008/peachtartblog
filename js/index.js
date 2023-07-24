@@ -1,5 +1,6 @@
 
 const host = 'i.peacht.art' // 인스턴스 주소
+const misskeyAdminId = '9gsr4vuc01' // 포크해가실때는 제발 지워주세요~!!!
 const misskeyUserId = '9gsrcnxa0g' // 각자의 서버에서 api 콘솔 - i 로 알아내세용
 const misskeyUserName = 'hyun1008' // 미스키 아이디
 const githubUserName = 'jyhyun1008' // 깃허브 아이디
@@ -119,7 +120,7 @@ function parseMd(md){ // 깃허브 등에 사용하는 마크다운 파일을 ht
 function parseMFM(md){
     // MFM으로 작성된 텍스트를 마크다운으로 변환하는 코드입니다.
 
-    const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;").replace(/\`/gm, "&grave;").replace(/\*/gm, "&ast;").replace(/\#/gm, "&num;").replace(/\~/gm, "&tilde;").replace(/\[/gm, "&lbrack;");
+    const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;").replace(/\`/gm, "&grave;").replace(/\*/gm, "&ast;").replace(/\#/gm, "&num;").replace(/\~/gm, "&tilde;").replace(/\[/gm, "&lbrack;").replace(/\:/gm, "&colon;").replace(/\//gm, "&sol;");
   
     //치환하고 싶은 에모지 치환
     md = md.replace(/\:arrow\_right\:/gm, '*');
@@ -132,7 +133,7 @@ function parseMFM(md){
     md = md.replace(/\?\[/gm, '[');
 
     //치환하지 않을 에모지 삭제
-    md = md.replace(/\:([^\:\/\n]+)\:/gm, '')
+    md = md.replace(/\:([^\:\/\`\n\s\(\)\,]+)\:/gm, '')
 
     //pre
     
@@ -157,7 +158,7 @@ function parseMFM(md){
 
     while( (pos2 = md.indexOf('\n```', pos2 + 1)) != -1 ) { 
         if (l % 2 == 0){
-            mdpos[l] = pos2 - 1;
+            mdpos[l] = pos2 ;
         } else {
             mdpos[l] = pos2 + 5;
         }
@@ -167,15 +168,11 @@ function parseMFM(md){
     for (var i = 0; i < mdpos.length; i++){
         if (i % 2 == 0){
 
-            console.log(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]))
-
-            md = md.replace(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]), '<pre class="code">'+md0.substring(rawpos[i], rawpos[i+1])+'</pre>');
+            md = md.replace(md.substring(mdpos[i] - diff[i], mdpos[i+1] - diff[i]), '\n<pre class="code">'+md0.substring(rawpos[i], rawpos[i+1])+'</pre>\n');
 
             var mdSubStringLength = mdpos[i+1] - mdpos[i];
-            var rawSubStringLength = rawpos[i+1] - rawpos[i] + '<pre class="code">'.length + '</pre>'.length;
+            var rawSubStringLength = rawpos[i+1] - rawpos[i] + '\n<pre class="code">'.length + '</pre>\n'.length;
             diff[i+2] = diff[i] + mdSubStringLength - rawSubStringLength;
-
-            console.log(diff)
 
         }
     }
@@ -209,6 +206,46 @@ if (!page) {
     .then((out) => {
         document.querySelector("#posttitle").innerText = 'INFORMATION'
         document.querySelector("#postcontent").innerHTML += parseMd(out)
+    })
+    .catch(err => { throw err });
+} else if (page == 'blog' && category == 'peachtart') {
+    document.querySelector("#posttitle").innerText = "Peacht.art official pages"
+    const findPageUrl = 'https://'+host+'/api/users/pages'
+    const findPageParam = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            userId: misskeyAdminId,
+            limit: 100,
+        }),
+    }
+    fetch(findPageUrl, findPageParam)
+    .then((PageData) => {return PageData.json()})
+    .then((PageRes) => {
+        var pageId = []
+        var pageUrl = []
+        var pageTitle = []
+        var pageSummary = []
+        var pageImage = []
+        for (var i=0; i<PageRes.length; i++){
+            pageId.push(PageRes[i].id)
+            pageUrl.push("https://"+host+"/@"+misskeyUserName+"/pages/"+PageRes[i].name)
+            pageTitle.push(PageRes[i].title)
+            if (PageRes[i].summary != null) {
+                pageSummary.push(PageRes[i].summary)
+            } else {
+                pageSummary.push('')
+            }
+            pageImage.push(PageRes[i].eyeCatchingImage.url)
+        }
+        for (var i=0; i<pageTitle.length; i++) {
+            document.querySelector("#postcontent").innerHTML += '<div class="section"></div>'
+            document.getElementsByClassName("section")[i].innerHTML += '<div class="blogPostTitle"><a href="?p=blog&a='+pageId[i]+'">'+pageTitle[i]+'</a></div>'
+            document.getElementsByClassName("section")[i].innerHTML += '<div><a href="?p=blog&a='+pageId[i]+'"><img class="eyecatchimg" src="'+pageImage[i]+'"></div>'
+            document.getElementsByClassName("section")[i].innerHTML += '<div>'+pageSummary[i]+'</div>'
+        }
     })
     .catch(err => { throw err });
 } else if (page == 'blog' && category != null) {
@@ -318,6 +355,7 @@ if (!page) {
         var pageText = makePageText(PageRes.content, PageRes.attachedFiles)
         document.querySelector("#posttitle").innerText = pageTitle
         document.querySelector("#postcontent").innerHTML += '<div><a href="'+pageUrl+'"><img class="eyecatchimg" src="'+pageImage+'"></div>'
+        console.log(pageText)
         document.querySelector("#postcontent").innerHTML += parseMd(pageText)
         
     })
