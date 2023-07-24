@@ -5,7 +5,8 @@ const misskeyUserName = 'hyun1008' // 미스키 아이디
 const githubUserName = 'jyhyun1008' // 깃허브 아이디
 const githubRepoName = 'peachtartblog' // 깃허브 레포지토리 이름
 
-function parseMd(md){
+function parseMd(md){ // 깃허브 등에 사용하는 마크다운 파일을 html로 변환시켜 줍니다.
+    // 정규식으로 되어 있습니다. 자세한 것은 정규식을 공부해 주세요.
 
     const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;");
   
@@ -115,14 +116,12 @@ function parseMd(md){
     
 }
 
-
 function parseMFM(md){
+    // MFM으로 작성된 텍스트를 마크다운으로 변환하는 코드입니다.
 
     const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;").replace(/\`/gm, "&grave;").replace(/\*/gm, "&ast;").replace(/\#/gm, "&num;").replace(/\~/gm, "&tilde;").replace(/\[/gm, "&lbrack;");
-
-    //MFM->MD
   
-    //ul
+    //치환하고 싶은 에모지 치환
     md = md.replace(/\:arrow\_right\:/gm, '*');
     md = md.replace(/\:peachtart\:\s/gm, '🍑')
     
@@ -132,9 +131,8 @@ function parseMFM(md){
     //links
     md = md.replace(/\?\[/gm, '[');
 
-    //emoji
+    //치환하지 않을 에모지 삭제
     md = md.replace(/\:([^\:\/\n]+)\:/gm, '')
-
 
     //pre
     
@@ -181,10 +179,7 @@ function parseMFM(md){
 
         }
     }
-
-    //br
-    md = md.replace(/\n\n/g, '\n\n');
-
+    
     return md;
 }
 
