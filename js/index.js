@@ -121,14 +121,16 @@ function parseMd(md){ // 깃허브 등에 사용하는 마크다운 파일을 ht
 function parseMFM(md){
     // MFM으로 작성된 텍스트를 마크다운으로 변환하는 코드입니다.
 
-    const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;").replace(/\`/gm, "&grave;").replace(/\*/gm, "&ast;").replace(/\#/gm, "&num;").replace(/\~/gm, "&tilde;").replace(/\[/gm, "&lbrack;").replace(/\:/gm, "&colon;").replace(/\//gm, "&sol;");
+    const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;").replace(/\`/gm, "&grave;").replace(/\*/gm, "&ast;").replace(/\#/gm, "&num;").replace(/\~/gm, "&tilde;").replace(/\]/gm, "&rbrack;").replace(/\:/gm, "&colon;").replace(/\//gm, "&sol;");
   
     //치환하고 싶은 에모지 치환
     md = md.replace(/\:arrow\_right\:/gm, '*');
     md = md.replace(/\:peachtart\:\s/gm, '🍑')
     
     //h
-    md = md.replace(/\n\$\[x2\s(.+)\]/gm, '\n## $1');
+    md = md.replace(/\n\$\[x2\s([^\]]+)\]/gm, '\n## $1');
+    //h
+    md = md.replace(/\n\$\[([^\]]+)\]/gm, '\n$1');
     
     //links
     md = md.replace(/\?\[/gm, '[');
@@ -308,6 +310,7 @@ if (!page) {
     .then((PageRes) => {
 
         function makePageText(content, attFiles) {
+
             var result = ''
             for (var i=0; i <content.length; i++){
                 if (content[i].type == 'section') {
@@ -315,6 +318,7 @@ if (!page) {
                         result = result + '\n#' + content[i].title
                         for (var j = 0; j < content[i].children.length; j++){
                             if (content[i].children[j].type == 'text') {
+                                console.log(parseMFM(content[i].children[j].text))
                                 result = result + '\n' + parseMFM(content[i].children[j].text)
                             } else if (content[i].children[j].type == 'image') {
                                 var fileId = content[i].children[j].fileId
