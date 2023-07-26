@@ -1,5 +1,6 @@
 @charset "utf-8";
 @import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
+@import url('https://cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@1.530/neodgm_code/style.css');
 
 /*
 'Lato' is licensed under the Open Font License.
@@ -506,6 +507,7 @@ footer a {
 }
 
 code {
+	font-family: 'NeoDunggeunmo Code', Courier, monospace !important;
     border-radius: 5px;
     background-color: var(--lightlightgray);
     color: var(--darkaccent);
@@ -515,6 +517,7 @@ code {
 }
 
 pre {
+	font-family: 'NeoDunggeunmo Code', Courier, monospace !important;
     border-radius:10px;
     background-color: var(--lightgray);
     color: var(--darkaccent);
