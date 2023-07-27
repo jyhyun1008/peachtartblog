@@ -2,6 +2,15 @@
 @import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css');
 @import url('https://cdn.jsdelivr.net/gh/neodgm/neodgm-webfont@1.530/neodgm_code/style.css');
 
+
+@font-face {
+	font-family: 'Cocoartz';
+	src: url('https://cdn.jsdelivr.net/gh/jyhyun1008/font/coconya.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
 /*
 'Lato' is licensed under the Open Font License.
 https://fonts.google.com/specimen/Lato
@@ -17,7 +26,7 @@ https://fonts.google.com/specimen/Lato
     --lightgray: #ffe7e4;
     --gray: #e7d4cb;
     --darkgray: #867979;
-    --text: #6d5a5a;
+    --text: #372f2f;
 }
 
 html {
@@ -30,7 +39,7 @@ body {
     background: white;
     color: var(--text);
     font-size: 1.1rem;
-    font-family: Galmuri11, 'メイリオ', 'ヒラギノ角ゴ', sans-serif;
+    font-family: 'Cocoartz', Galmuri11, 'メイリオ', 'ヒラギノ角ゴ', sans-serif;
     letter-spacing: 0.2em;
     line-height: 1.8;
 }
