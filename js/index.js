@@ -121,7 +121,7 @@ function parseMd(md){ // 깃허브 등에 사용하는 마크다운 파일을 ht
 function parseMFM(md){
     // MFM으로 작성된 텍스트를 마크다운으로 변환하는 코드입니다.
 
-    const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;").replace(/\`/gm, "&grave;").replace(/\*/gm, "&ast;").replace(/\#/gm, "&num;").replace(/\~/gm, "&tilde;").replace(/\]/gm, "&rbrack;").replace(/\:/gm, "&colon;").replace(/\//gm, "&sol;");
+    const md0 = md.replace(/\</gm,"&lt;").replace(/\>/gm, "&gt;").replace(/\`/gm, "&grave;").replace(/\-/gm, "&dash;").replace(/\*/gm, "&ast;").replace(/\#/gm, "&num;").replace(/\~/gm, "&tilde;").replace(/\]/gm, "&rbrack;").replace(/\:/gm, "&colon;").replace(/\//gm, "&sol;");
   
     //치환하고 싶은 에모지 치환
     md = md.replace(/\:arrow\_right\:/gm, '*');
