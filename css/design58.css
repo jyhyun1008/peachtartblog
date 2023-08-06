@@ -24,7 +24,7 @@ https://fonts.google.com/specimen/Lato
 html {
     background: transparent;
     font-size: 14px;
-    cursor: url(https://peachtart2.s3.ap-northeast-1.amazonaws.com/tart/2598379a-e743-4079-96eb-b27da0a0e735.png), auto;
+    cursor: url(https://peachtart2.s3.ap-northeast-1.amazonaws.com/tart/6a5bf448-f1d8-4be5-accd-442b76bca0e1.apng), auto;
 }
 body {
     min-height: 100vh;
@@ -39,7 +39,7 @@ a {
     text-decoration: none;
 }
 a:hover {
-    cursor: url(https://peachtart2.s3.ap-northeast-1.amazonaws.com/tart/2598379a-e743-4079-96eb-b27da0a0e735.png), auto;
+    cursor: url(https://peachtart2.s3.ap-northeast-1.amazonaws.com/tart/6a5bf448-f1d8-4be5-accd-442b76bca0e1.apng), auto;
 }
 p, h1, h2, h3, h4, h5, h6, pre{
     margin-bottom: 20px;
@@ -328,7 +328,7 @@ ul[class^="list"] {
     background-image: repeating-linear-gradient(-35deg, transparent, transparent 1em, #ffffff 1em, #ffffff 1.1em), url('../img/background1.png');
     box-shadow: 0 0 4px var(--gray);
     color: var(--darkgray);
-    cursor: url(https://peachtart2.s3.ap-northeast-1.amazonaws.com/tart/2598379a-e743-4079-96eb-b27da0a0e735.png), auto;
+    cursor: url(https://peachtart2.s3.ap-northeast-1.amazonaws.com/tart/6a5bf448-f1d8-4be5-accd-442b76bca0e1.apng), auto;
     font-size: 1rem;
 }
 
